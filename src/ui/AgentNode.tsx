@@ -65,7 +65,7 @@ export function AgentNode({ agent }: Props) {
       <Text color={c}>{'║'}<Text color={c}>{tokLine}</Text><Text color={c}>{'║'}</Text></Text>
       {hasTools && (
         <>
-          <Text color={c}>{'╠'}<Text color="#6e7681">{'═ tools '}</Text>{'═'.repeat(w - 8)}{'╣'}</Text>
+          <Text color={c}>{'╠'}<Text color="#6e7681">{'═ tools '}</Text>{'═'.repeat(Math.max(0, w - 8))}{'╣'}</Text>
           {toolLines.map((tl, i) => (
             <Text key={i} color={c}>{'║'}<Text color="#e6edf3">{line(tl)}</Text><Text color={c}>{'║'}</Text></Text>
           ))}

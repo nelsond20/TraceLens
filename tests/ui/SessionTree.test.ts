@@ -62,6 +62,11 @@ describe('branchLine', () => {
     expect(branchLine(20)).toHaveLength(20)
     expect(branchLine(15)).toHaveLength(15)
   })
+
+  it('retorna │ si totalWidth < 3', () => {
+    expect(branchLine(2)).toBe('│')
+    expect(branchLine(0)).toBe('│')
+  })
 })
 
 describe('projectSubtreeWidth', () => {

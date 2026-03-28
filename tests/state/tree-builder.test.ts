@@ -5,6 +5,7 @@ import {
 } from '../../src/state/tree-builder.js'
 import { TokenAccumulator } from '../../src/state/accumulator.js'
 import { BurnTracker } from '../../src/state/burn-tracker.js'
+import { ToolTracker } from '../../src/state/tool-tracker.js'
 import * as fs from 'node:fs'
 
 vi.mock('node:fs')
@@ -61,7 +62,7 @@ describe('buildAppState filtering', () => {
     const burn = new BurnTracker()
     burn.recordTokens('active:__orch__', 500)
 
-    const state = buildAppState(sessions, acc, burn, null, '/fake/projects')
+    const state = buildAppState(sessions, acc, burn, new ToolTracker(), null, '/fake/projects')
 
     expect(state.sessions).toHaveLength(2)
   })
@@ -75,7 +76,7 @@ describe('buildAppState filtering', () => {
     const burn = new BurnTracker()
     burn.recordTokens('active:__orch__', 500)
 
-    const state = buildAppState(sessions, acc, burn, null, '/fake/projects')
+    const state = buildAppState(sessions, acc, burn, new ToolTracker(), null, '/fake/projects')
 
     expect(state.sessions).toHaveLength(2)
     expect(state.sessions.map(s => s.sessionId)).toContain('idle')
@@ -93,7 +94,7 @@ describe('buildAppState filtering', () => {
     const burn = new BurnTracker()
     burn.recordTokens('sess-1:worker-abc123def456789a', 500)
 
-    const state = buildAppState(sessions, acc, burn, null, '/fake/projects')
+    const state = buildAppState(sessions, acc, burn, new ToolTracker(), null, '/fake/projects')
 
     expect(state.sessions).toHaveLength(1)
     expect(state.sessions[0].sessionId).toBe('sess-1')

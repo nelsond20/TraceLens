@@ -5,6 +5,7 @@ import { JournalProvider } from '../providers/journal.js'
 import { WindowProvider } from '../providers/window.js'
 import { TokenAccumulator } from '../state/accumulator.js'
 import { BurnTracker } from '../state/burn-tracker.js'
+import { ToolTracker } from '../state/tool-tracker.js'
 import { buildAppState, buildAgentKey, discoverSessions } from '../state/tree-builder.js'
 import { WindowHeader } from './WindowHeader.js'
 import { SessionTree } from './SessionTree.js'
@@ -60,12 +61,12 @@ export function App({ claudeProjectsDir, projectFilter }: Props) {
     })
 
     const renderInterval = setInterval(() => {
-      setAppState(buildAppState(sessionsRef.current, acc, burn, windowRef.current, claudeProjectsDir))
+      setAppState(buildAppState(sessionsRef.current, acc, burn, new ToolTracker(), windowRef.current, claudeProjectsDir))
     }, 300)
 
     sessionProv.start()
+    windowProv.start()  // sincrónico: setea windowStart antes de la lectura inicial del JSONL
     journalProv.start()
-    windowProv.start()
 
     return () => {
       clearInterval(renderInterval)

@@ -13,6 +13,7 @@ function makeAgent(overrides: Partial<AgentState> = {}): AgentState {
     dangerRatio: 0,
     color: '#58a6ff',
     isSidechain: false,
+    currentTools: null,
     ...overrides,
   }
 }

@@ -6,6 +6,7 @@ import type { AgentState, SessionState, AppState, TokenTotals } from './types.js
 import { TokenAccumulator } from './accumulator.js'
 import { BurnTracker } from './burn-tracker.js'
 import { calculateDangerRatio, dangerColor, GRAY } from './alert-engine.js'
+import { ToolTracker } from './tool-tracker.js'
 
 export interface SubAgentPath {
   agentId: string
@@ -132,6 +133,7 @@ export function buildAppState(
   sessions: SessionEvent[],
   accumulator: TokenAccumulator,
   burnTracker: BurnTracker,
+  toolTracker: ToolTracker,
   window: WindowState | null,
   claudeProjectsDir?: string
 ): AppState {
@@ -163,6 +165,7 @@ export function buildAppState(
           dangerRatio: danger,
           color: dangerColor(danger),
           isSidechain: true,
+          currentTools: toolTracker.getTools(key),
         }
       })
       .filter(sa => sa.burnRatePerMinute > 0)
@@ -185,6 +188,7 @@ export function buildAppState(
       dangerRatio: orchDanger,
       color: dangerColor(orchDanger),
       isSidechain: false,
+      currentTools: toolTracker.getTools(orchKey),
     }
 
     return {

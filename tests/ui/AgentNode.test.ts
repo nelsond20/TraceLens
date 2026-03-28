@@ -38,6 +38,18 @@ describe('agentInnerWidth', () => {
     // name line: " un-nombre-muy-largo-aqui ⚠" = 27 chars
     expect(agentInnerWidth(agent)).toBeGreaterThanOrEqual(27)
   })
+
+  it('incluye el ancho de las tool lines cuando currentTools no es null', () => {
+    // "  Read(10) · Bash(5) · Glob(3) · Write(2)" = 41 chars
+    const agent = makeAgent({ currentTools: { Read: 10, Bash: 5, Glob: 3, Write: 2 } })
+    expect(agentInnerWidth(agent)).toBeGreaterThanOrEqual(41)
+  })
+
+  it('no cambia el ancho cuando currentTools es null', () => {
+    const agent = makeAgent({ currentTools: null })
+    // igual que sin tools: dominado por model line (18 chars)
+    expect(agentInnerWidth(agent)).toBe(18)
+  })
 })
 
 describe('agentBoxWidth', () => {

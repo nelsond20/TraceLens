@@ -89,7 +89,7 @@ export function App({ claudeProjectsDir, projectFilter }: Props) {
 
   return (
     <Box flexDirection="column" padding={1}>
-      <WindowHeader state={appState} />
+      <WindowHeader />
       <SessionTree sessions={appState.sessions} />
     </Box>
   )

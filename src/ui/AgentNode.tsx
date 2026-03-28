@@ -4,7 +4,6 @@ import type { AgentState } from '../state/types.js'
 
 interface Props {
   agent: AgentState
-  isSubAgent?: boolean
 }
 
 function formatTokens(n: number): string {

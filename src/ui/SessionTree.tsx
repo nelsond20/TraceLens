@@ -66,7 +66,7 @@ function ProjectNode({ session }: { session: SessionState }) {
 
       {hasSubAgents ? (
         <>
-          <Text color={c}>{subRow > 1 ? branchLine(subRow) : '│'}</Text>
+          <Text color={c}>{session.subAgents.length > 1 ? branchLine(subRow) : '│'}</Text>
           <Box flexDirection="row" gap={4}>
             {session.subAgents.map(agent => (
               <AgentNode key={agent.agentId ?? agent.name} agent={agent} />
